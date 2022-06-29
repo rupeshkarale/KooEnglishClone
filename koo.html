@@ -1,0 +1,207 @@
+<html>
+<head>
+<style>
+
+.container{ 
+     width:100%;
+    height:100%;
+     background-image:url(https://images.kooapp.com/img/landingbackground.png);
+     background-position:cover;
+    background-size:cover;
+    padding-left:0%;
+    padding-right:0%;
+    box-sizing:border-box;
+   position:relative;
+   
+}
+
+.navbar{
+       width:100%;
+       height:9vh;
+       margin:auto;
+       display:flex;
+       align-items:center;
+       background-color:black;
+}
+.logo{
+    width:50px;
+    cursor:pointer;
+     
+       background:linear-gradient(45deg,#87adfe,#ff77cd);
+       border-radius:6px;
+       box-sizing:border-box;
+       color:#fff;
+       box-shadow:3px 8px 22px rgba(94,28,68,0.15);
+}
+.cart{
+      width:40px;
+    cursor:pointer;
+     position:relative;
+}
+.nav{ 
+    flex:1;
+    padding-left:60px;
+}
+.nav,li{
+        display:inline-block;
+        list-style:none;
+        margin:0px 20px;
+}
+.nav,ul,li,a{
+          text-decoration:none;
+         color:white;
+          font-size:18px;
+}
+a{
+   position:relative;
+   paddding:0 10px;
+}
+a:after{
+     content:"";
+    position:absolute;
+    background-color:#ff3c78;
+     height:3px;
+     width:0;
+    left:0;
+     bottom:-15px;
+    transition:0.3s;
+}
+a:hover:after{
+    width:60px;
+}
+.content h1{
+      font-size:60px;
+      font-weight:100;
+      margin-top:24px;
+     margin-bottom:15px;
+    color:#232d60;
+}
+.content p{
+      font-size:20px;
+      color:#232d60;
+}
+.content{
+      margin-left:5%;
+      margin-top:5%;     
+}
+.content .btn{
+       display:inline-block;
+       background:linear-gradient(45deg,#87adfe,#ff77cd);
+       border-radius:6px;
+       padding:10px 20px;
+       box-sizing:border-box;
+       text-decoration:none;
+       color:#fff;
+       box-shadow:3px 8px 22px rgba(94,28,68,0.15);
+}
+.arrow-icons img{
+       width:40px;
+       margin-right:25px;
+}
+.feature-img{
+      opacity:-1;
+       height:60%;
+       position:absolute;
+       bottom:65px;
+       right:160px;
+       animation-name:sharan;
+       animation-duration:3s;
+        animation-delay:2s;
+        animation-iteration-count:1;
+      
+}
+@keyframes sharan{
+      0%{opacity:-1}
+      25%{opacity:1}
+      50%{opacity:1}
+      75%{opacity:1}
+      100%{opacity:-1}
+}      
+#design{
+      border:2px solid white;
+       color:white;
+    text-align:center;  
+     height:25px;
+     width:100px;
+       background:#232d60;
+   
+    border-radius:20px; 
+   
+   box-shadow:50px; 
+}
+.num{ 
+     border:2px solid white;
+       background-color:rgba(0,0,255,0.3);
+    text-align:center;  
+     height:30px;
+     width:100px;
+      background-color:gradient;
+     color:white;
+    border-radius:20px; 
+   margin-left:450px; 
+   position:relative;
+}
+.mun{
+    border:2px solid white;
+       background-color:blue;
+    text-align:center;  
+     height:30px;
+     width:100px;
+  
+     color:white;
+    border-radius:20px; 
+   margin-left:20px;
+  
+}
+.koko{
+       border:1px solid black ;
+        border-radius:30px;
+       height:200px;
+       width:240px;
+       position:relative;
+   padding:0px;
+      margin-top:400px;
+     margin-left:650px;
+     marging-right:350px;
+     background-color:white;
+}
+.rn{  border:2px solid white;
+       background-color:rgba(0,0,255,0.3);
+    text-align:center;  
+     height:40px;
+     width:100px;
+      background-color:gradient;
+     color:white;
+    border-radius:20px; 
+     margin-top:40px;
+   margin-left:70px;
+     
+     position:relative;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+       <div class="navbar">
+  <img src="1126012.png" class="logo">
+      <nav>
+         <ul>
+         <li id="design"><a href="" >home</a></li>
+         <li id="design"><a href="" >about</a></li>
+         <li id="design"><a href="" >collection</a></li>  
+         <li id="design"><a href="" >contact</a></li>
+         <li id="design"><a href="" >info</a></li> 
+               
+         </ul>
+      </nav>
+  <button class=num><b>Login</b></button>
+  <img src="7069012.png" class="cart" style="margin-left:20px">
+   </div>
+<div class="koko">
+<img class="rm" src="https://tse1.mm.bing.net/th?id=OIP.AbtedvSnJw3xvek2RjeL8wHaC3&pid=Api&rs=1&c=1&qlt=95&w=247&h=95">
+   
+<button class="rn">go to feed</button>
+</div>
+</body>
+</html>
