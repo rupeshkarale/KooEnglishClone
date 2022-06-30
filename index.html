@@ -460,7 +460,7 @@
                 </div>
                 <div class="statusbar">
                     <img src="https://www.kooapp.com/img/user.svg" alt="">
-                    <div>Whats on your Mind?</div>
+                    <div id="createpost">Whats on your Mind?</div>
                     <img src="https://www.kooapp.com/img/koo_create_24.svg" alt="">
                 </div>
                 <div class="people">
@@ -650,10 +650,16 @@
             btn.addEventListener("click", function(){
                 var like = document.querySelector(".like-count");
                 var img = document.querySelector(".img-count");
-                like.style.color = "red";
-                img.style.color = "red";
+                like.style.color = "white";
+                like.style.backgroundColor ="grey"
+                like.innerHTML = "1";
             });
         });
+
+        var create = document.querySelector("#createpost");
+        create.addEventListener("click", function(){
+            location.href = "create.html";     
+           });
 
 
         
