@@ -664,12 +664,13 @@
             });
         });
 
-        document.querySelectorAll(".like-count").forEach(function(btn){
+        document.querySelectorAll(".like-btn").forEach(function(btn){
             btn.addEventListener("click", function(){
                 // var like = document.querySelector(".like-count");
-                
-                var number = btn.innerHTML
-                btn.innerHTML = parseInt(number)+1;
+                 var n = btn.children[1];
+                // var number = btn.innerHTML
+                var number = n.innerHTML;
+                n.innerHTML = parseInt(number)+1;
             });
         });
 
@@ -820,9 +821,9 @@
         // }
     
         document.querySelector(".comment").addEventListener("keypress", function(event) {
-            if (event.key == "enter") {
-                var c =document.querySelector(".comment-count");
-                c.innerHTML = "1";  //                                                  
+            if (event.key === 13) {
+                var c = document.querySelector(".comment-count");
+                c.innertext = "1";  //                                                  
             }
         })
 
