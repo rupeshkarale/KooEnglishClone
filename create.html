@@ -144,12 +144,12 @@
 
                 <div class="line1">
                     <div class="line1-left">
-                        <img src="https://www.kooapp.com/_next/static/media/create_back-arrow.cea4aa95.svg" alt="">
+                        <img class="back" src="https://www.kooapp.com/_next/static/media/create_back-arrow.cea4aa95.svg" alt="">
                         <img src="https://www.kooapp.com/_next/static/media/defaultAvatar.df4b6e90.svg" alt="">
             
                     </div>
                     <div class="line1-right">
-                        <button>
+                        <button class="post-button">
                             <img src="https://www.kooapp.com/_next/static/media/create_post.035a59de.svg" alt="">
                             Post
                         </button>
@@ -180,4 +180,20 @@
         </div>
     </div>
 </body>
+<script>
+    document.querySelector(".post-button").addEventListener("click", createPost);
+     
+    function createPost(){
+       var content = document.querySelector(".write").value;
+    
+        localStorage.setItem("content",content);
+
+    }
+
+    document.querySelector(".back").addEventListener("click", backTohome);
+     function backTohome(){
+        location.href = "index.html";
+     }
+
+</script>
 </html>
