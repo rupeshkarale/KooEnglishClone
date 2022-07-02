@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Koo: View the Latest Koos</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Roboto, sans-serif;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      html {
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+      }
+      #whole {
+        height: 100%;
+        width: 100vw;
+        position: relative;
+      }
+      .container {
+        display: flex;
+
+        justify-content: center;
+        margin: 0px auto;
+        height: 100vh;
+        /* position: relative; */
+      }
+      #left {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        /* padding: 20px; */
+        /* justify-content: right; */
+        /* justify-self: right; */
+        /* padding-right: 30px; */
+      }
+      .left-data {
+        margin-right: 3rem;
+        position: fixed;
+      }
+      .left-data > img {
+        width: 60px;
+        display: block;
+        /* margin: 0px auto; */
+        margin-top: 30px;
+        margin-bottom: 20px;
+        margin-left: 10px;
+      }
+      .left-data > button {
+        background: #5d7681;
+        border-radius: 50px;
+        border: 1px solid #759295;
+        color: #fff;
+        font-weight: 500;
+        font-size: 20px;
+        width: 160px;
+        padding: 8px;
+      }
+      .left-data :nth-child(5) {
+        position: absolute;
+        top: 100%;
+      }
+      /* .left-data :last-child{
+               margin-bottom: -1;
+          }  */
+      .left-logo {
+        display: flex;
+        align-items: center;
+        /* justify-content: left; */
+        height: 70px;
+        /* margin-right: 30px; */
+        /* position: relative; */
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif, sans-serif;
+      }
+
+      .left-logo > h5 {
+        font-size: 19px;
+        margin: 0;
+        padding-right: 2px;
+        font-weight: 500;
+        margin-left: 6px;
+        color: #5d7681;
+      }
+      .left-logo > img {
+        width: 28px;
+        display: block;
+      }
+      #signin {
+        position: absolute;
+        top: 92vh;
+      }
+      #mid {
+        width: 50%;
+        height: 5000px;
+        /* max-width: 1040px; */
+        background-color: #f8f7f3;
+        padding: 0px 30px;
+      }
+      #mid > .nav {
+        width: 47%;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f7f3;
+        padding-top: 30px;
+
+        position: fixed;
+        z-index: 1;
+      }
+      #mid > .nav > a {
+        list-style: none;
+        line-height: 15px;
+        text-decoration: none;
+        margin-right: 10px;
+        color: rgb(136, 136, 136);
+        font-size: 19px;
+        font-family: Roboto, sans-serif !important;
+        font-weight: 500;
+      }
+      #mid > .statusbar {
+        display: flex;
+        align-items: center;
+        border: 0px solid rgb(136, 136, 136);
+        background-color: white;
+        padding: 10px 5px;
+        border-radius: 13px;
+        margin-top: 5rem;
+      }
+      #mid > .statusbar > div {
+        width: 90%;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #ccc;
+      }
+      #mid > .statusbar :first-child {
+        width: 25px;
+      }
+      #mid > .statusbar > b {
+        text-align: center;
+      }
+      #mid > .people {
+        display: flex;
+        flex-direction: column;
+        background: #f8f7f3;
+      }
+      #mid > .people > .can-follow {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background: #f8f7f3;
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+      #mid > .people > .profile-follow {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+      #mid > .people > .profile-follow > .profile {
+        background-color: white;
+        padding: 9px;
+        text-align: center;
+        border: 1px solid #e8e8e3;
+        margin: 6px;
+        border-radius: 8px;
+        width: 15em;
+        min-height: 15em;
+      }
+      #mid > .people > .profile-follow > .profile > img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+
+        object-fit: cover;
+        margin: auto;
+      }
+      #mid > .people > .profile-follow > .profile > h5 {
+        margin: 0px;
+        margin-top: 13px;
+        height: 30px;
+      }
+      #mid > .people > .profile-follow > .profile > button {
+        background: #809b9d;
+        border: 1px solid #759295;
+        cursor: pointer;
+        border-radius: 20px;
+        padding: 7px 16px 5px;
+        color: #fff;
+        margin-top: 0.5em;
+        font-weight: 500;
+        position: relative;
+        top: 24px;
+      }
+      #mid > .many-post > .post {
+        margin-top: 30px;
+        background-color: #fff;
+        height: auto;
+        border-radius: 10px;
+        padding: 20px;
+      }
+      #mid > .many-post > .post > .name {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #mid > .many-post > .post > .name > .name-left {
+        display: flex;
+        margin: 0px;
+      }
+      #mid > .many-post > .post > .name > .name-left > div > h2 {
+        margin: 2px;
+        margin-bottom: 7px;
+        color: #111111;
+        font-size: 19px;
+      }
+      #mid > .many-post > .post > .name > .name-left > div > div {
+        color: #888;
+      }
+      #mid > .many-post > .post > .name > .name-left > img {
+        object-fit: cover;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+      }
+      #mid > .many-post > .post > .name > .name-right {
+        display: flex;
+        width: 15%;
+        gap: 2px;
+        align-items: top;
+        margin-right: 10px;
+      }
+      #mid > .many-post > .post > .name > .name-right > img {
+        width: 30%;
+        height: 30%;
+        margin: 0px 5px;
+      }
+      #mid > .many-post > .post > .name > .name-right > p {
+        margin: 0px;
+
+        color: rgba(78, 78, 78, 0.533);
+      }
+      #mid > .many-post > .post > .caption {
+        word-break: break-word;
+        /* white-space: pre-wrap; */
+        font-size: 20px;
+        line-height: 1.4;
+        padding: 0 16px;
+        font-weight: 500;
+        color: rgb(66, 66, 66);
+        width: 100%;
+        margin: 0px;
+      }
+
+      /* //right */
+      .right1 {
+        width: 25%;
+        padding-right: 90px;
+      }
+      #right {
+        display: flex;
+        flex-direction: column;
+        padding-top: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        gap: 20px;
+
+        position: fixed;
+      }
+
+      #right > .search {
+        display: flex;
+        justify-content: space-between;
+        background: #f8f7f3;
+        padding: 0 20px;
+        border-radius: 24px;
+        display: -ms-flexbox;
+        display: flex;
+        border: 1.00292px solid #e8e8e3;
+        height: 59px;
+        margin: 0;
+        align-items: center;
+        font-size: 18px;
+        color: #759295;
+        position: relative;
+      }
+      #right > .search > img {
+        width: 20px;
+      }
+      .search > div {
+        position: absolute;
+        left: 50px;
+      }
+      #right > .search + div {
+        font-size: 16px;
+        margin: 0;
+        padding-right: 2px;
+        font-weight: 300;
+      }
+      #right > .hashtag {
+        height: 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1.00292px solid #e8e8e3;
+        background: #f8f7f3;
+        padding: 0 18px;
+        border-radius: 24px;
+      }
+      .outer-like {
+        align-items: center;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+
+      #right > .hashtag > .hash-left > div {
+        color: rgb(30, 99, 189);
+        font-size: 18px;
+        margin: 0;
+        font-weight: 300;
+        font-family: Roboto, sans-serif;
+        margin-top: 1rem;
+      }
+      #right .hash-right > img {
+        height: 30px;
+        width: 30px;
+        margin-top: 0.7rem;
+      }
+      #right .view-more {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 10px;
+        border: 0px 1px 0px 1px solid black;
+      }
+      #right > .view-more > button {
+        border: 0px;
+        background: #fff;
+        font-size: 19px;
+        font-weight: 300;
+        color: rgb(30, 99, 189);
+      }
+      #right > .about {
+        display: flex;
+        justify-content: space-evenly !important;
+        padding-top: 40px;
+        border-top: 1px solid rgb(236, 236, 236);
+      }
+      #right > .about > a {
+        text-decoration: none;
+        color: #759295;
+        margin-left: 1rem;
+      }
+      .like1 {
+        width: 26px;
+        height: 26px;
+        border-radius: 26px;
+        margin-right: -1px;
+
+        cursor: pointer;
+        position: relative;
+        padding: 0 1px 1px;
+        margin-top: 20px;
+      }
+      .counter {
+        color: rgb(102, 102, 102);
+        padding-left: 5px;
+        margin-top: 20px;
+      }
+      .content {
+        position: relative;
+        height: auto;
+        width: 100%;
+        margin-right: 0px;
+        cursor: pointer;
+      }
+      .comment_box {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        background-color: white;
+        margin-top: 10px;
+        padding: 10px 5px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="whole">
+      <div class="container">
+        <div id="left">
+          <div class="left-data">
+            <img src="https://www.kooapp.com/assets/2d634360.svg" alt="" />
+            <div class="left-logo">
+              <img src="https://www.kooapp.com/assets/bce0173d.svg" alt="" />
+              <h5>Feed</h5>
+            </div>
+
+            <div class="left-logo">
+              <img src="https://www.kooapp.com/assets/3aa2efc7.svg" alt="" />
+              <h5>Explore</h5>
+            </div>
+            <div class="left-logo">
+              <img src="https://www.kooapp.com/assets/bce0173d.svg" alt="" />
+              <h5>Language</h5>
+            </div>
+            <button class="koo">+Koo</button><br />
+            <button id="signin">+Sign In</button>
+          </div>
+          <!--end of left data-->
+        </div>
+        <div id="mid">
+          <div class="nav">
+            <a href="">Feed</a>
+            <a href="">People</a>
+            <a href="" style="color: #7bcce9; text-decoration: underline"
+              >Trending</a
+            >
+            <a href="">Videos</a>
+            <a href="">Polls</a>
+            <a href="">Cricket</a>
+            <a href="">Following</a>
+            <a href="">New</a>
+          </div>
+          <div class="statusbar">
+            <img src="https://www.kooapp.com/img/user.svg" alt="" />
+            <div>Whats on your Mind?</div>
+            <img src="https://www.kooapp.com/img/koo_create_24.svg" alt="" />
+          </div>
+
+          <div class="many-post">
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/2802793/d43489d5-2101-433c-a7f8-b1993c282921voke.jpg"
+                    alt=""
+                  />
+                  <div>
+                    <h2>हिंदू राष्ट्र</h2>
+                    <div>@हिन्दू_राष्ट्र6S5EU</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>3h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                <a
+                  href="#"
+                  style="
+                    color: blue;
+                    text-decoration: none;
+                    /* margin: 0px; */
+                    /* padding: -20px; */ */
+                  "
+                >
+                  #g7summit</a
+                >
+                <br />
+                It’s a matter of PRIDE FOR INDIA. Congrats to all Indians..
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/2783334/a1848bcf-5df9-469e-b356-f70a6177571f.jpg"
+                  alt="koo"
+                  style="width: 100%; height: 400px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">860</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">86</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">106</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/21296294/dcd4394d-c65b-4757-a7a1-72d8d7dd4d2bvoke.jpg?tr=n-dp_small"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Shubha Gauranga Das</h2>
+                    <div>@Shubha_Gauranga_Das</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>8h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                Hare Krishna. Enjoy the beautiful darshan of lord Sri Sri Nitai
+                Mayapurchandra ji Amritsar Punjab 🙏🙏
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/21296294/abafeb66-ff80-4876-8cdd-c102acd8ce1b.jpg"
+                  alt="koo"
+                  style="width: 100%; height: 550px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">56</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">2</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/profile162263196262214m15.png?tr=n-dp_small"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Nitin Gadkari</h2>
+                    <div>Nitin.Gadkari</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>14h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                Humble homage to Former Prime Minister P. V. Narasimha Rao ji on
+                his birth anniversary.
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/3072079/FINAL-IMAGE-WEB-6248dbf0-a87e-4e13-a3f2-aa2191907bbc.jpg"
+                  alt="koo"
+                  style="width: 100%; height: 550px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">86</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">16</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/16978228/7d1c10da-afb7-4d48-aef7-e076d8c0aa11voke.jpg?tr=n-dp_small"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Sabkajobs placement</h2>
+                    <div>Sabkajobsplacement</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>8h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">Nature’s Love</p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/20542201/a3243f49-587d-4681-a4ea-6eac129b69a1.jpg"
+                  alt="koo"
+                  style="width: 100%; height: 400px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">36</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">2</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/21200840/a15ba362-65c2-4063-a2e6-048eeb545afdvoke.jpg"
+                    alt=""
+                  />
+                  <div>
+                    <h2>TANUJ GUPTA</h2>
+                    <div>@tanuj</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>3h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                Some Pics of Government’s Mega Job Fair, Organised by Employment
+                Office & ANA Engineering Institute, Bareilly
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/21200840/be49a677-7551-4e59-adf7-c1a1fecaa71a.jpg"
+                  alt="koo"
+                  style="width: 100%; height: 400px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">86</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">16</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/20551587/14de1246-7cf0-44f9-b51d-a1d7a61f0bf6voke.jpg?tr=n-dp_small"
+                    alt=""
+                  />
+                  <div>
+                    <h2>sejal</h2>
+                    <div>@sejalrajan</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>12h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                Breath in the wild air🍀
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/20551587/c1f4cfc1-e2b5-49a2-9d62-596ffffa3c4a.jpg"
+                  alt="koo"
+                  style="width: 100%; height: 400px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">43</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">1</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/20468772/a7770093-61cb-4f6b-9001-15e52200a6d4voke.jpg?tr=n-dp_small"
+                    alt=""
+                  />
+                  <div>
+                    <h2>sandeep</h2>
+                    <div>@sandeep12</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>1d</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                Prime Minister Narendra Modi meets German Chancellor Olaf Scholz
+                on the sidelines of the #G7Summit at Schloss Elmau in Germany.
+                Both leaders emphasized the need to take forward their Green and
+                Sustainable Development Partnership.
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/20468772/4e078651-d82d-4694-a519-5ae7d4a3fba6.jpg"
+                  alt="koo"
+                  style="width: 100%; height: 500px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">43</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">16</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right1">
+          <div id="right">
+            <div class="search">
+              <img src="https://www.kooapp.com/img/search_default.svg" alt="" />
+              <div>Search</div>
+              <img src="https://www.kooapp.com/img/micRound.svg" alt="" />
+            </div>
+            <div>Trending Hashtags</div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#teetasetalvad</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+                <img src="https://www.kooapp.com/assets/bf913849.svg" alt="" />
+              </div>
+            </div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#narendramodi</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+                <img src="https://www.kooapp.com/assets/bf913849.svg" alt="" />
+              </div>
+            </div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#gujaratriots2002</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+                <img src="https://www.kooapp.com/assets/bf913849.svg" alt="" />
+              </div>
+            </div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#worlddrugday</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+                <img src="https://www.kooapp.com/assets/bf913849.svg" alt="" />
+              </div>
+            </div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#maharashtracrisis</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+                <img src="https://www.kooapp.com/assets/bf913849.svg" alt="" />
+              </div>
+            </div>
+            <div class="view-more">
+              <button>View More</button>
+              <img src="https://www.kooapp.com/img/Chevron_right.svg" alt="" />
+            </div>
+            <nav class="about">
+              <a href="#">About</a>
+              <a href="#">Press</a>
+              <a href="#">Contact</a>
+              <a href="#">Resource</a>
+              <a href="#">FAQs</a>
+            </nav>
+          </div>
+        </div>
+        <!--end of right1-->
+      </div>
+    </div>
+  </body>
+  <script>
+    document.querySelectorAll(".follow-btn").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (btn.innerHTML == "+ Follow") {
+          btn.innerHTML = "Following";
+          btn.style.backgroundColor = "#FFFFFF";
+          btn.style.color = "#759295";
+        } else {
+          btn.innerHTML = "+ Follow";
+          btn.style.backgroundColor = "#759295";
+          btn.style.color = "#FFFFFF";
+        }
+      });
+    });
+  </script>
+</html>
