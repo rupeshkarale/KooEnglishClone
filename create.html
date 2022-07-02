@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        *{
+            box-sizing: border-box;
+            font-family:  Roboto,sans-serif;
+        }
+        body{
+            background-color: #F8F7F2;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box{
+            padding-top: 20px;
+            border: 1px solid #E8E8E3;
+            border-radius: 26px;
+            background:#EDEDEA ;
+        }
+        .container{
+            width: 60%;
+            
+            margin: auto auto;
+        }
+        .innerpart{
+            display: flex;
+            flex-direction: column;
+            
+            margin-bottom: 0px;
+            
+            
+        }
+        .line1{
+            display: flex;
+            width: 100%;
+            justify-content: space-between;
+            background: #EDEDEA;
+        }
+        .line1 > .line1-left >img{
+            width: 36px;
+            
+        }
+        .line1 > .line1-right > img{
+            /* margin: 0px;
+            margin-right: 4px; */
+        }
+        .line1 > .line1-right > button{
+            font-size: 17px;
+            background-color: #b9c6c6;
+            border: #69898c;
+            color: white;
+            width: 100px;
+            border-radius: 26px;
+            height: 2.25rem;
+            margin: 0 0.75rem;
+            font-weight: 600;
+        }
+        .line2{
+            display: flex;
+            align-items: flex-start;
+            background: #EDEDEA;
+            margin-top: 10px;
+        }
+        .line2 > img{
+            width: 44px;
+            height: 44px;
+            margin: 0px;
+        }
+        .line2> button{
+            font-size: 15px;
+            width: 90px;
+            height: 32px;
+            border-radius: 26px;
+            background-color: #e2e1de;
+            border: 1px #dcdbd7 solid;
+           
+            font-weight: 500;
+            color: RGBA(89, 89, 89, 0.9);
+            margin-top: 10px;
+            margin-bottom: 10px;
+           
+        }
+        .add-post{
+            display: flex;
+            flex-direction: column;
+            border : none;
+            border-radius: 27px;
+            height: 99%;
+            
+            background-color: white;
+            
+            
+        }
+        .mind{
+            padding: 16px 24px;
+            
+            height: 80px;
+            margin: 0px;
+            font-size: 20px;
+            color: #809b9d;
+            background: white;
+            
+            margin: 10px;
+        
+        }
+        .write{
+            font-size: 22px;
+            outline: none;
+            height: 245px;
+            margin: -1px;
+            border: none;
+            padding: 2px;
+            flex-wrap: wrap;
+            margin: 5px;
+            word-wrap: break-word;
+            text-align: start;
+        }
+        .add-pic{
+            display: flex;
+            justify-content: space-between;
+            background: white;
+            margin: 7px;
+            border-top: 1px solid #E8E8E3;
+            
+        }
+        .add-pic> img{
+            width: 45px;
+            height: 40px;
+            
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="box">
+            <div class="innerpart">
+
+                <div class="line1">
+                    <div class="line1-left">
+                        <img class="back" src="https://www.kooapp.com/_next/static/media/create_back-arrow.cea4aa95.svg" alt="">
+                        <img src="https://www.kooapp.com/_next/static/media/defaultAvatar.df4b6e90.svg" alt="">
+            
+                    </div>
+                    <div class="line1-right">
+                        <button class="post-button">
+                            <img src="https://www.kooapp.com/_next/static/media/create_post.035a59de.svg" alt="">
+                            Post
+                        </button>
+                    </div>
+                </div>
+
+                <div class="line2">
+                    <img src="https://www.kooapp.com/_next/static/media/create_add-language.a24cdb7b.svg" alt="">
+                    <button>English</button>
+                </div>
+
+                <div class="add-post">
+                    <div class="mind">
+                        Whats's on your mind?
+                    </div>
+                    <textarea name="" class="write" id="" cols="30" rows="8"></textarea>
+                    <div class="add-pic">
+                        <div>
+                            <img src="https://www.kooapp.com/_next/static/media/create_add-image.484f06ec.svg" alt="">
+                            <img src="https://www.kooapp.com/_next/static/media/create_add-video.c5494cdd.svg" alt="">
+                            <img src="https://www.kooapp.com/_next/static/media/create_add-link.518e015c.svg" alt="">
+                            <img src="https://www.kooapp.com/_next/static/media/create_add-link.518e015c.svg" alt="">
+                       </div>
+                            <div><p class="words">0</p></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    document.querySelector(".post-button").addEventListener("click", createPost);
+     
+    function createPost(){
+       var content = document.querySelector(".write").value;
+    
+        localStorage.setItem("content",content);
+
+    }
+
+    document.querySelector(".back").addEventListener("click", backTohome);
+     function backTohome(){
+        location.href = "index.html";
+     }
+
+</script>
+</html>
