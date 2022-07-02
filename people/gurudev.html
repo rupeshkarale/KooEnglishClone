@@ -1,0 +1,1205 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Koo: View the Latest Koos</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        font-family: Roboto, sans-serif;
+      }
+      html,
+      body {
+        margin: 0;
+      }
+      html {
+        line-height: 1.15;
+        -webkit-text-size-adjust: 100%;
+      }
+      #whole {
+        height: 100%;
+        width: 100vw;
+        position: relative;
+      }
+      .container {
+        display: flex;
+
+        justify-content: center;
+        margin: 0px auto;
+        height: 100vh;
+        /* position: relative; */
+      }
+      #left {
+        width: 25%;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        /* padding: 20px; */
+        /* justify-content: right; */
+        /* justify-self: right; */
+        /* padding-right: 30px; */
+      }
+      .left-data {
+        margin-right: 3rem;
+        position: fixed;
+      }
+      .left-data > img {
+        width: 60px;
+        display: block;
+        /* margin: 0px auto; */
+        margin-top: 30px;
+        margin-bottom: 20px;
+        margin-left: 10px;
+      }
+      .left-data > button {
+        background: #5d7681;
+        border-radius: 50px;
+        border: 1px solid #759295;
+        color: #fff;
+        font-weight: 500;
+        font-size: 20px;
+        width: 160px;
+        padding: 8px;
+      }
+      .left-data :nth-child(5) {
+        position: absolute;
+        top: 100%;
+      }
+      /* .left-data :last-child{
+               margin-bottom: -1;
+          }  */
+      .left-logo {
+        display: flex;
+        align-items: center;
+        /* justify-content: left; */
+        height: 70px;
+        /* margin-right: 30px; */
+        /* position: relative; */
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif, sans-serif;
+      }
+
+      .left-logo > h5 {
+        font-size: 19px;
+        margin: 0;
+        padding-right: 2px;
+        font-weight: 500;
+        margin-left: 6px;
+        color: #5d7681;
+      }
+      .left-logo > img {
+        width: 28px;
+        display: block;
+      }
+      #signin {
+        position: absolute;
+        top: 92vh;
+      }
+      #mid {
+        width: 50%;
+        height: 5000px;
+        /* max-width: 1040px; */
+        background-color: #f8f7f3;
+        padding: 0px 30px;
+      }
+      #mid > .nav {
+        width: 47%;
+        height: 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background-color: #f8f7f3;
+        padding-top: 30px;
+
+        position: fixed;
+        z-index: 1;
+      }
+      #mid > .nav > a {
+        list-style: none;
+        line-height: 15px;
+        text-decoration: none;
+        margin-right: 10px;
+        color: rgb(136, 136, 136);
+        font-size: 19px;
+        font-family: Roboto, sans-serif !important;
+        font-weight: 500;
+      }
+      #mid > .statusbar {
+        display: flex;
+        align-items: center;
+        border: 0px solid rgb(136, 136, 136);
+        background-color: white;
+        padding: 10px 5px;
+        border-radius: 13px;
+        margin-top: 5rem;
+      }
+      #mid > .statusbar > div {
+        width: 90%;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 5px 10px;
+        border-radius: 5px;
+        color: #ccc;
+      }
+      #mid > .statusbar :first-child {
+        width: 25px;
+      }
+      #mid > .statusbar > b {
+        text-align: center;
+      }
+      #mid > .people {
+        display: flex;
+        flex-direction: column;
+        background: #f8f7f3;
+      }
+      #mid > .people > .can-follow {
+        display: flex;
+        justify-content: space-between;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        background: #f8f7f3;
+        font-size: 1rem;
+        font-weight: 500;
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue",
+          sans-serif;
+      }
+      #mid > .people > .profile-follow {
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+      }
+      #mid > .people > .profile-follow > .profile {
+        background-color: white;
+        padding: 9px;
+        text-align: center;
+        border: 1px solid #e8e8e3;
+        margin: 6px;
+        border-radius: 8px;
+        width: 15em;
+        min-height: 15em;
+      }
+      #mid > .people > .profile-follow > .profile > img {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+
+        object-fit: cover;
+        margin: auto;
+      }
+      #mid > .people > .profile-follow > .profile > h5 {
+        margin: 0px;
+        margin-top: 13px;
+        height: 30px;
+      }
+      #mid > .people > .profile-follow > .profile > button {
+        background: #809b9d;
+        border: 1px solid #759295;
+        cursor: pointer;
+        border-radius: 20px;
+        padding: 7px 16px 5px;
+        color: #fff;
+        margin-top: 0.5em;
+        font-weight: 500;
+        position: relative;
+        top: 24px;
+      }
+      #mid > .many-post > .post {
+        margin-top: 30px;
+        background-color: #fff;
+        height: auto;
+        border-radius: 10px;
+        padding: 20px;
+      }
+      #mid > .many-post > .post > .name {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      #mid > .many-post > .post > .name > .name-left {
+        display: flex;
+        margin: 0px;
+      }
+      #mid > .many-post > .post > .name > .name-left > div > h2 {
+        margin: 2px;
+        margin-bottom: 7px;
+        color: #111111;
+        font-size: 19px;
+      }
+      #mid > .many-post > .post > .name > .name-left > div > div {
+        color: #888;
+      }
+      #mid > .many-post > .post > .name > .name-left > img {
+        object-fit: cover;
+        border-radius: 50%;
+        width: 60px;
+        height: 60px;
+      }
+      #mid > .many-post > .post > .name > .name-right {
+        display: flex;
+        width: 15%;
+        gap: 2px;
+        align-items: top;
+        margin-right: 10px;
+      }
+      #mid > .many-post > .post > .name > .name-right > img {
+        width: 30%;
+        height: 30%;
+        margin: 0px 5px;
+      }
+      #mid > .many-post > .post > .name > .name-right > p {
+        margin: 0px;
+
+        color: rgba(78, 78, 78, 0.533);
+      }
+      #mid > .many-post > .post > .caption {
+        word-break: break-word;
+        /* white-space: pre-wrap; */
+        font-size: 20px;
+        line-height: 1.4;
+        padding: 0 16px;
+        font-weight: 500;
+        color: rgb(66, 66, 66);
+        width: 100%;
+        margin: 0px;
+      }
+
+      /* //right */
+      .right1 {
+        width: 25%;
+        padding-right: 90px;
+      }
+      #right {
+        display: flex;
+        flex-direction: column;
+        padding-top: 30px;
+        padding-left: 20px;
+        padding-right: 20px;
+        gap: 20px;
+
+        position: fixed;
+      }
+
+      #right > .search {
+        display: flex;
+        justify-content: space-between;
+        background: #f8f7f3;
+        padding: 0 20px;
+        border-radius: 24px;
+        display: -ms-flexbox;
+        display: flex;
+        border: 1.00292px solid #e8e8e3;
+        height: 59px;
+        margin: 0;
+        align-items: center;
+        font-size: 18px;
+        color: #759295;
+        position: relative;
+      }
+      #right > .search > img {
+        width: 20px;
+      }
+      .search > div {
+        position: absolute;
+        left: 50px;
+      }
+      #right > .search + div {
+        font-size: 16px;
+        margin: 0;
+        padding-right: 2px;
+        font-weight: 300;
+      }
+      #right > .hashtag {
+        height: 70px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border: 1.00292px solid #e8e8e3;
+        background: #f8f7f3;
+        padding: 0 18px;
+        border-radius: 24px;
+      }
+      .outer-like {
+        align-items: center;
+
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-start;
+      }
+
+      #right > .hashtag > .hash-left > div {
+        color: rgb(30, 99, 189);
+        font-size: 18px;
+        margin: 0;
+        font-weight: 300;
+        font-family: Roboto, sans-serif;
+        margin-top: 1rem;
+      }
+      #right .hash-right > img {
+        height: 30px;
+        width: 30px;
+        margin-top: 0.7rem;
+      }
+      #right .view-more {
+        display: flex;
+        justify-content: space-between;
+        padding: 5px 10px;
+        border: 0px 1px 0px 1px solid black;
+      }
+      #right > .view-more > button {
+        border: 0px;
+        background: #fff;
+        font-size: 19px;
+        font-weight: 300;
+        color: rgb(30, 99, 189);
+      }
+      #right > .about {
+        display: flex;
+        justify-content: space-evenly !important;
+        padding-top: 40px;
+        border-top: 1px solid rgb(236, 236, 236);
+      }
+      #right > .about > a {
+        text-decoration: none;
+        color: #759295;
+        margin-left: 1rem;
+      }
+      .like1 {
+        width: 26px;
+        height: 26px;
+        border-radius: 26px;
+        margin-right: -1px;
+
+        cursor: pointer;
+        position: relative;
+        padding: 0 1px 1px;
+        margin-top: 20px;
+      }
+      .counter {
+        color: rgb(102, 102, 102);
+        padding-left: 5px;
+        margin-top: 20px;
+      }
+      .content {
+        position: relative;
+        height: auto;
+        width: 100%;
+        margin-right: 0px;
+        cursor: pointer;
+      }
+      .comment_box {
+        display: flex;
+        align-items: center;
+        border: 1px solid #ccc;
+        background-color: white;
+        margin-top: 10px;
+        padding: 10px 5px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="whole">
+      <div class="container">
+        <div id="left">
+          <div class="left-data">
+            <img src="https://www.kooapp.com/assets/2d634360.svg" alt="" />
+            <div class="left-logo">
+              <img src="https://www.kooapp.com/assets/bce0173d.svg" alt="" />
+              <h5>Feed</h5>
+            </div>
+
+            <div class="left-logo">
+              <img src="https://www.kooapp.com/assets/3aa2efc7.svg" alt="" />
+              <h5>Explore</h5>
+            </div>
+            <div class="left-logo">
+              <img src="https://www.kooapp.com/assets/bce0173d.svg" alt="" />
+              <h5>Language</h5>
+            </div>
+            <button class="koo">+Koo</button><br />
+            <button id="signin">+Sign In</button>
+          </div>
+          <!--end of left data-->
+        </div>
+        <div id="mid">
+         
+          <div class="statusbar">
+           
+          </div>
+
+          <div class="many-post">
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/5250318/62ab9661-fa52-4198-95c1-192b673b2f09voke.jpg" alt="user" style="width: 52px; height: 52px; object-fit: cover; border-radius: 50%; margin: 0px 0.5rem 0px 0.25rem;"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Gurudev Sri Sri Ravi Shankar
+                    </h2>
+                    <div>@Gurudev</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>3h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                <a
+                  href="#"
+                  style="
+                    color: blue;
+                    text-decoration: none;
+                    /* margin: 0px; */
+                    /* padding: -20px; */ 
+                  "
+                >
+                </a
+                >
+                <br />
+                When someone blames you, they take away some negative karma from you. If you understand this, you will only feel happy about it.
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/5250318/3277F95B-B086-4AC9-B7AA-015796D2856B-image.jpeg" 
+                  alt="koo"
+                  style="width: 100%; height: 80%"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">860</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">86</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">106</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/5250318/62ab9661-fa52-4198-95c1-192b673b2f09voke.jpg" alt="user" style="width: 52px; height: 52px; object-fit: cover; border-radius: 50%; margin: 0px 0.5rem 0px 0.25rem;"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Gurudev Sri Sri Ravi Shankar
+                    </h2>
+                    <div>@Gurudev</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>8h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                Today Siddhivinayak temple  Darshan. 💐 🙏 गणपति बप्पा मोरिया. 🙏
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/18371119/4145A089-CE36-4351-910C-1C0220CC5F7C-image.jpeg"
+                  alt="koo"
+                  style="width: 100%; height: 550px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">56</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">2</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/5250318/62ab9661-fa52-4198-95c1-192b673b2f09voke.jpg" alt="user" style="width: 52px; height: 52px; object-fit: cover; border-radius: 50%; margin: 0px 0.5rem 0px 0.25rem;"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Gurudev Sri Sri Ravi Shankar
+                    </h2>
+                    <div>@Gurudev</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>14h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                The mind has a tendency to doubt the positive things in life. Doubt the negative and put your trust in the positive.
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/5250318/EEC70F2C-B06A-4127-BC1F-400725C5741C-image.jpeg"
+                  alt="koo"
+                  style="width: 100%; height: 550px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">86</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">16</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/5250318/62ab9661-fa52-4198-95c1-192b673b2f09voke.jpg" alt="user" style="width: 52px; height: 52px; object-fit: cover; border-radius: 50%; margin: 0px 0.5rem 0px 0.25rem;"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Gurudev Sri Sri Ravi Shankar
+                    </h2>
+                    <div>@Gurudev</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>8h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">Do not let adverse situations leave impressions in your mind and take your happiness away. Shrug them off and stand tall.</p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/5250318/E1BD5378-19A3-4D7A-B619-0B040C908C0B-image.jpeg"
+                  alt="koo"
+                  style="width: 100%; height: 400px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">36</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">2</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/5250318/62ab9661-fa52-4198-95c1-192b673b2f09voke.jpg" alt="user" style="width: 52px; height: 52px; object-fit: cover; border-radius: 50%; margin: 0px 0.5rem 0px 0.25rem;"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Gurudev Sri Sri Ravi Shankar
+                    </h2>
+                    <div>@Gurudev</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>3h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                If you manipulate words it’s a lie, if you play on words it’s a joke, if you rely on words it’s ignorance, if you transcend words it’s Wisdom.
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/5250318/0A8F9FA1-8E56-4A50-A5BF-8E54ED4861D8-image.jpeg"
+                  alt="koo"
+                  style="width: 100%; height: 400px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">86</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">16</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/5250318/62ab9661-fa52-4198-95c1-192b673b2f09voke.jpg" alt="user" style="width: 52px; height: 52px; object-fit: cover; border-radius: 50%; margin: 0px 0.5rem 0px 0.25rem;"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Gurudev Sri Sri Ravi Shankar
+                    </h2>
+                    <div>@Gurudev</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>12h</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                The concept that things should be a certain way causes pain in the mind. The cause of distress is set concepts in the mind.
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/5250318/4E122F2E-00AA-4043-8D7B-0DE346F9B3F0-image.jpeg"
+                  alt="koo"
+                  style="width: 100%; height: 400px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">43</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">1</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="post">
+              <div class="name">
+                <div class="name-left">
+                  <img
+                    src="https://images.kooapp.com/transcode_input/5250318/62ab9661-fa52-4198-95c1-192b673b2f09voke.jpg" alt="user" style="width: 52px; height: 52px; object-fit: cover; border-radius: 50%; margin: 0px 0.5rem 0px 0.25rem;"
+                    alt=""
+                  />
+                  <div>
+                    <h2>Gurudev Sri Sri Ravi Shankar
+                    </h2>
+                    <div>@Gurudev</div>
+                  </div>
+                </div>
+                <div class="name-right">
+                  <p>1d</p>
+                  <img
+                    src="https://www.kooapp.com/assets/32000b4f.svg"
+                    alt=""
+                  />
+                  <img
+                    src="https://www.kooapp.com/img/ic_options_new.svg"
+                    alt=""
+                  />
+                </div>
+              </div>
+              <p class="caption" style="margin: 10px">
+                Some things are obtained through struggle and some through patience. You need both the qualities in life. Discrimination is knowing when to fight and when to be patient.
+              </p>
+              <div class="content2">
+                <img
+                  src="https://images.kooapp.com/transcode_input/5250318/BB79155C-7D30-4EF4-8101-B1AB0CA370EB-image.jpeg"
+                  alt="koo"
+                  style="width: 100%; height: 500px"
+                />
+                <div class="comment_box">
+                  <img
+                    style="width: 25px"
+                    src="https://www.kooapp.com/assets/3e71122b.svg"
+                    alt=""
+                  />
+                  <div style="color: #888; margin-left: 10px; font-size: 13px">
+                    Write Your Comment...
+                  </div>
+                </div>
+                <div style="display: flex; flex-direction: row">
+                  <div class="outer-like">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Like1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                    <div class="counter">43</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Inactive-comment.svg"
+                        alt="comment"
+                      />
+                    </div>
+                    <div class="counter">6</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 100px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Rekoo1.5.svg"
+                        alt="rek"
+                      />
+                    </div>
+                    <div class="counter">16</div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Whatsapp1.5.svg"
+                        alt="like"
+                      />
+                    </div>
+                  </div>
+                  <div class="outer-like" style="padding-left: 110px">
+                    <div class="like1">
+                      <img
+                        style="font-size: 14px; align-self: end"
+                        src="https://www.kooapp.com/img/Share1.5.svg"
+                        alt="WA"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="right1">
+          <div id="right">
+            <div class="search">
+              <img src="https://www.kooapp.com/img/search_default.svg" alt="" />
+              <div>Search</div>
+              <img src="https://www.kooapp.com/img/micRound.svg" alt="" />
+            </div>
+            <div>Trending Hashtags</div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#teetasetalvad</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+                <img src="https://www.kooapp.com/assets/383f959d.svg" alt="" /> 
+              </div>
+            </div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#narendramodi</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+                <img src="https://www.kooapp.com/assets/383f959d.svg" alt="" /> 
+              </div>
+            </div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#gujaratriots2002</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+               <img src="https://www.kooapp.com/assets/383f959d.svg" alt="" /> 
+              </div>
+            </div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#worlddrugday</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+              <img src="https://www.kooapp.com/assets/383f959d.svg" alt="" /> 
+              </div>
+            </div>
+            <div class="hashtag">
+              <div class="hash-left">
+                <div>#maharashtracrisis</div>
+                <img src="" alt="" />
+              </div>
+              <div class="hash-right">
+                 <img src="https://www.kooapp.com/assets/383f959d.svg" alt="" /> 
+              </div>
+            </div>
+            <div class="view-more">
+              <button>View More</button>
+              <img src="https://www.kooapp.com/img/Chevron_right.svg" alt="" />
+            </div>
+            <nav class="about">
+              <a href="#">About</a>
+              <a href="#">Press</a>
+              <a href="#">Contact</a>
+              <a href="#">Resource</a>
+              <a href="#">FAQs</a>
+            </nav>
+          </div>
+        </div>
+        <!--end of right1-->
+      </div>
+    </div>
+    <script>     
+    
+      document.querySelectorAll(".counter").forEach(function (btn) {
+          btn.addEventListener("click",function () {
+            let val=btn.innerHTML;
+            btn.innerHTML = parseInt(val) + 1;
+          });
+        });
+          </script>
+
+
+
+    
+  </body>
+ 
+</html>
+
